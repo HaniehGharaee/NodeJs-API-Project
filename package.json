@@ -1,0 +1,24 @@
+{
+  "name": "lms",
+  "version": "1.0.0",
+  "description": "School Management System API course 2023",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "keywords": [
+    "lms",
+    "nodejs"
+  ],
+  "author": "Hanieh Gharaee",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.8.4"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7"
+  }
+}
