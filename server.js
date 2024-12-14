@@ -1,4 +1,5 @@
 const http = require('http')
+require("./config/dbConnect");
 const app = require('./app/app')
 
 //const app = express()
