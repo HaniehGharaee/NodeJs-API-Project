@@ -113,4 +113,78 @@ app.put('/api/v1/admins/suspending/teacher/:id', (req, res) =>{
     }
 })
 
+//admin Unsuspending teacher
+app.put('/api/v1/admins/unsuspending/teacher/:id', (req, res) =>{
+    try{
+        res.status(201).json({
+            status: 'success',
+            data: 'admins Unsuspending teacher'
+        })
+    }catch (error){
+        res.json({
+            status: "failed",
+            error: error.massage
+        })
+    }
+})
+
+//admin withdrawing teacher
+app.put('/api/v1/admins/withdraw/teacher/:id', (req, res) =>{
+    try{
+        res.status(201).json({
+            status: 'success',
+            data: 'admins withdraw teacher'
+        })
+    }catch (error){
+        res.json({
+            status: "failed",
+            error: error.massage
+        })
+    }
+})
+
+//admin Unwithdrawing teacher
+app.put('/api/v1/admins/unwithdraw/teacher/:id', (req, res) =>{
+    try{
+        res.status(201).json({
+            status: 'success',
+            data: 'admins unwithdraw teacher'
+        })
+    }catch (error){
+        res.json({
+            status: "failed",
+            error: error.massage
+        })
+    }
+})
+
+//admin publish exam results teacher
+app.put('/api/v1/admins/publish/exam/:id', (req, res) =>{
+    try{
+        res.status(201).json({
+            status: 'success',
+            data: 'admins publish exam'
+        })
+    }catch (error){
+        res.json({
+            status: "failed",
+            error: error.massage
+        })
+    }
+})
+
+//admin Unpublish exam results teacher
+app.put('/api/v1/admins/unpublish/exam/:id', (req, res) =>{
+    try{
+        res.status(201).json({
+            status: 'success',
+            data: 'admins unpublish exam'
+        })
+    }catch (error){
+        res.json({
+            status: "failed",
+            error: error.massage
+        })
+    }
+})
 module.exports = app;
