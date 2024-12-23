@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
-
+const adminRouter = require("../routes/staff/adminRouter")
+adminRouter
 const app = express()
 
 //============Middleware===========
@@ -9,22 +10,15 @@ app.use(morgan("dev"))
 //Routes 
 
 //admin register
-app.post('/api/v1/admins/register', (req, res) =>{
-    try{
-        res.status(201).json({
-            status: 'success',
-            data: 'Admin has been registered'
-        })
-    }catch (error){
-        res.json({
-            status: "failed",
-            error: error.massage
-        })
-    }
-})
+app.use('/api/v1/admins/register', adminRouter)
+// app.use('/me', (req, res)=> {
+//     res.json({
+//         msg: "I will be called"
+//     });
+// })
 
 //admin login
-app.post('/api/v1/admins/login', (req, res) =>{
+app.post('/api/v1/admins', (req, res) =>{
     try{
         res.status(201).json({
             status: 'success',
