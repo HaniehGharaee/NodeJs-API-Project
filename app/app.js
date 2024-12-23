@@ -18,34 +18,10 @@ app.use('/api/v1/admins/register', adminRouter)
 // })
 
 //admin login
-app.post('/api/v1/admins', (req, res) =>{
-    try{
-        res.status(201).json({
-            status: 'success',
-            data: 'Admin has been login'
-        })
-    }catch (error){
-        res.json({
-            status: "failed",
-            error: error.massage
-        })
-    }
-})
+app.post('/api/v1/admins', adminRouter)
 
 //Get all admins
-app.get('/api/v1/admins', (req, res) =>{
-    try{
-        res.status(201).json({
-            status: 'success',
-            data: 'All admins'
-        })
-    }catch (error){
-        res.json({
-            status: "failed",
-            error: error.massage
-        })
-    }
-})
+app.get('/api/v1/admins', adminRouter)
 
 //Get single admins
 app.get('/api/v1/admins/:id', (req, res) =>{
