@@ -107,13 +107,78 @@ adminRouter.put("/", (req, res) => {
 });
 
 //admin Unsuspending teacher
+adminRouter.put("/", (req, res) => {
+  try {
+    res.status(201).json({
+      status: "success",
+      data: "admins Unsuspending teacher",
+    });
+  } catch (error) {
+    res.json({
+      status: "failed",
+      error: error.massage,
+    });
+  }
+});
 
 //admin withdrawing teacher
+adminRouter.put("/", (req, res) => {
+  try {
+    res.status(201).json({
+      status: "success",
+      data: "admins unwithdraw teacher",
+    });
+  } catch (error) {
+    res.json({
+      status: "failed",
+      error: error.massage,
+    });
+  }
+});
 
 //admin Unwithdrawing teacher
+adminRouter.put("/", (req, res) => {
+  try {
+    res.status(201).json({
+      status: "success",
+      data: "admins unwithdraw teacher",
+    });
+  } catch (error) {
+    res.json({
+      status: "failed",
+      error: error.massage,
+    });
+  }
+});
 
 //admin publish exam results teacher
+adminRouter.put("/", (req, res) => {
+  try {
+    res.status(201).json({
+      status: "success",
+      data: "admins publish exam",
+    });
+  } catch (error) {
+    res.json({
+      status: "failed",
+      error: error.massage,
+    });
+  }
+});
 
 //admin Unpublish exam results teacher
+adminRouter.put("/", (req, res) => {
+  try {
+    res.status(201).json({
+      status: "success",
+      data: "admins unpublish exam",
+    });
+  } catch (error) {
+    res.json({
+      status: "failed",
+      error: error.massage,
+    });
+  }
+});
 
 module.exports = adminRouter;
