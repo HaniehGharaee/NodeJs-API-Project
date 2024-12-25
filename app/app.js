@@ -24,64 +24,16 @@ app.post('/api/v1/admins', adminRouter)
 app.get('/api/v1/admins', adminRouter)
 
 //Get single admins
-app.get('/api/v1/admins/:id', (req, res) =>{
-    try{
-        res.status(201).json({
-            status: 'success',
-            data: 'single admins'
-        })
-    }catch (error){
-        res.json({
-            status: "failed",
-            error: error.massage
-        })
-    }
-})
+app.get('/api/v1/admins/:id', adminRouter)
 
 //Update admin
-app.put('/api/v1/admins/:id', (req, res) =>{
-    try{
-        res.status(201).json({
-            status: 'success',
-            data: 'update admins'
-        })
-    }catch (error){
-        res.json({
-            status: "failed",
-            error: error.massage
-        })
-    }
-})
+app.put('/api/v1/admins/:id', adminRouter)
 
 //Delete admin
-app.delete('/api/v1/admins/:id', (req, res) =>{
-    try{
-        res.status(201).json({
-            status: 'success',
-            data: 'delete admins'
-        })
-    }catch (error){
-        res.json({
-            status: "failed",
-            error: error.massage
-        })
-    }
-})
+app.delete('/api/v1/admins/:id', adminRouter)
 
 //admin suspending teacher
-app.put('/api/v1/admins/suspending/teacher/:id', (req, res) =>{
-    try{
-        res.status(201).json({
-            status: 'success',
-            data: 'admins suspending teacher'
-        })
-    }catch (error){
-        res.json({
-            status: "failed",
-            error: error.massage
-        })
-    }
-})
+app.put('/api/v1/admins/suspending/teacher/:id', adminRouter)
 
 //admin Unsuspending teacher
 app.put('/api/v1/admins/unsuspending/teacher/:id', (req, res) =>{
