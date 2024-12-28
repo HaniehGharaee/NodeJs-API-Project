@@ -2,7 +2,7 @@ const express = require("express");
 
 const adminRouter = express.Router();
 
-adminRouter.post("/", (req, res) => {
+adminRouter.post("/register", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -17,7 +17,7 @@ adminRouter.post("/", (req, res) => {
 });
 
 //login
-adminRouter.post("/", (req, res) => {
+adminRouter.post("/login", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -47,7 +47,7 @@ adminRouter.get("/", (req, res) => {
 });
 
 //get single admins
-adminRouter.get("/", (req, res) => {
+adminRouter.get("/:id", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -62,7 +62,7 @@ adminRouter.get("/", (req, res) => {
 });
 
 //update admin
-adminRouter.put("/", (req, res) => {
+adminRouter.put("/:id", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -77,7 +77,7 @@ adminRouter.put("/", (req, res) => {
 });
 
 //Delete admin
-adminRouter.delete("/", (req, res) => {
+adminRouter.delete("/:id", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -92,7 +92,7 @@ adminRouter.delete("/", (req, res) => {
 });
 
 //admin suspending teacher
-adminRouter.put("/", (req, res) => {
+adminRouter.put("/suspending/teacher/:id", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -107,7 +107,7 @@ adminRouter.put("/", (req, res) => {
 });
 
 //admin Unsuspending teacher
-adminRouter.put("/", (req, res) => {
+adminRouter.put("/unsuspending/teacher/:id", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -122,7 +122,7 @@ adminRouter.put("/", (req, res) => {
 });
 
 //admin withdrawing teacher
-adminRouter.put("/", (req, res) => {
+adminRouter.put("/withdraw/teacher/:id", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -137,7 +137,7 @@ adminRouter.put("/", (req, res) => {
 });
 
 //admin Unwithdrawing teacher
-adminRouter.put("/", (req, res) => {
+adminRouter.put("/unwithdraw/teacher/:id", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -152,7 +152,7 @@ adminRouter.put("/", (req, res) => {
 });
 
 //admin publish exam results teacher
-adminRouter.put("/", (req, res) => {
+adminRouter.put("/publish/exam/:id", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
@@ -167,7 +167,7 @@ adminRouter.put("/", (req, res) => {
 });
 
 //admin Unpublish exam results teacher
-adminRouter.put("/", (req, res) => {
+adminRouter.put("/unpublish/exam/:id", (req, res) => {
   try {
     res.status(201).json({
       status: "success",
