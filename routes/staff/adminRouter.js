@@ -1,20 +1,9 @@
 const express = require("express");
-
+const {registerAdminCtrl} = require("../../controller/staff/adminCtrl")
 const adminRouter = express.Router();
 
-adminRouter.post("/register", (req, res) => {
-  try {
-    res.status(201).json({
-      status: "success",
-      data: "Admin has been registered",
-    });
-  } catch (error) {
-    res.json({
-      status: "failed",
-      error: error.massage,
-    });
-  }
-});
+//register
+adminRouter.post("/register", registerAdminCtrl);
 
 //login
 adminRouter.post("/login", (req, res) => {
