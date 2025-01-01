@@ -1,25 +1,39 @@
+const Admin = require("../../model/Staff/Admin");
 
 //@desc Register admin
 //@route Post /api/v1/admins/register
-//@acess Private 
+//@acess Private
 //const registerAdminCtrl
-exports.registerAdminCtrl = (req, res) => {     // else on const instead exports
-    try {
-      res.status(201).json({
-        status: "success",
-        data: "Admin has been registered",
-      });
-    } catch (error) {
-      res.json({
-        status: "failed",
-        error: error.massage,
-      });
+exports.registerAdminCtrl = async (req, res) => {
+  // else on const instead exports
+  const { name, email, password } = req.body;
+  try {
+    //Check if email exists
+    const adminFound = await Admin.findOne({ email });
+    if (adminFound) {
+      res.json("Admin Exists");
     }
-  };
+    //register
+    const user = await Admin.create({
+      name,
+      email,
+      password,
+    });
+    res.status(201).json({
+      status: "success",
+      data: user,
+    });
+  } catch (error) {
+    res.json({
+      status: "failed",
+      error: error.massage,
+    });
+  }
+};
 
 //@desc login admin
 //@route Post /api/v1/admins/register
-//@acess Private 
+//@acess Private
 exports.loginAdminCtrl = (req, res) => {
   try {
     res.status(201).json({
@@ -36,7 +50,7 @@ exports.loginAdminCtrl = (req, res) => {
 
 //@desc Get all admins
 //@route GET /api/v1/admins
-//@acess Private 
+//@acess Private
 exports.getAdminsCtrl = (req, res) => {
   try {
     res.status(201).json({
@@ -49,11 +63,11 @@ exports.getAdminsCtrl = (req, res) => {
       error: error.massage,
     });
   }
-}
+};
 
 //@desc Get single admin
 //@route GET /api/v1/admins/:id
-//@acess Private 
+//@acess Private
 exports.getAdminCtrl = (req, res) => {
   try {
     res.status(201).json({
@@ -66,11 +80,11 @@ exports.getAdminCtrl = (req, res) => {
       error: error.massage,
     });
   }
-}
+};
 
 //@desc  Update admin
 //@route UPDATE /api/v1/admins/:id
-//@acess Private 
+//@acess Private
 exports.updateAdminCtrl = (req, res) => {
   try {
     res.status(201).json({
@@ -87,7 +101,7 @@ exports.updateAdminCtrl = (req, res) => {
 
 //@desc  Delete admin
 //@route DELETE /api/v1/admins/:id
-//@acess Private 
+//@acess Private
 exports.deleteAdminCtrl = (req, res) => {
   try {
     res.status(201).json({
@@ -100,7 +114,7 @@ exports.deleteAdminCtrl = (req, res) => {
       error: error.massage,
     });
   }
-}
+};
 
 //@desc  admin suspend a teacher
 //@route PUT /api/v1/admins/suspend/teacher/:id
@@ -117,7 +131,7 @@ exports.adminSuspendTeacherCtrl = (req, res) => {
       error: error.massage,
     });
   }
-}
+};
 
 //@desc  admin unsuspend a teacher
 //@route PUT /api/v1/admins/unsuspend/teacher/:id
@@ -134,7 +148,7 @@ exports.adminUnSUspendTeacherCtrl = (req, res) => {
       error: error.massage,
     });
   }
-}
+};
 
 //@desc  admin withdraw a teacher
 //@route PUT /api/v1/admins/withdraw/teacher/:id
@@ -151,7 +165,7 @@ exports.adminWithdrawTeacherCtrl = (req, res) => {
       error: error.massage,
     });
   }
-}
+};
 
 //@desc  admin unwithdraw a teacher
 //@route PUT /api/v1/admins/unwithdraw/teacher/:id
@@ -168,7 +182,7 @@ exports.adminUnWithdrawTeacherCtrl = (req, res) => {
       error: error.massage,
     });
   }
-}
+};
 
 //@desc  admin publish exam result
 //@route PUT /api/v1/admins/publish/exam/:id
@@ -185,7 +199,7 @@ exports.adminPublishResultCtrl = (req, res) => {
       error: error.massage,
     });
   }
-}
+};
 
 //@desc  admin unpublish exam result
 //@route PUT /api/v1/admins/unpublish/exam/:id
@@ -202,7 +216,7 @@ exports.adminUnPublishResultCtrl = (req, res) => {
       error: error.massage,
     });
   }
-}
+};
 
 //   module.exports = {
 //     registerAdminCtrl,
