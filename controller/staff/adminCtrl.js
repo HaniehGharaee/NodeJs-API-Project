@@ -34,12 +34,19 @@ exports.registerAdminCtrl = async (req, res) => {
 //@desc login admin
 //@route Post /api/v1/admins/register
 //@acess Private
-exports.loginAdminCtrl = (req, res) => {
+exports.loginAdminCtrl = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    res.status(201).json({
-      status: "success",
-      data: "Admin has been login",
-    });
+    //find user
+    const user = await Admin.findOne({ email });
+    if (!user) {
+      return res.json({ message: "Usre not found" });
+    }
+    if (user && (await user.verifyPassword(password))) {
+      return res.json({ data: user });
+    } else {
+      return res.json({ message: "Invalid login crendentials" });
+    }
   } catch (error) {
     res.json({
       status: "failed",
