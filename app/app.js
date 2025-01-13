@@ -8,10 +8,30 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json()); //pass incoming json data
 
-app.use((req, res, next) => {
-  console.log("Middleware", req);
-  console.log(`${req.method} ${req.originalUrl}`);
-  next();
+// app.use((req, res, next) => {
+//   console.log("Middleware", req);
+//   console.log(`${req.method} ${req.originalUrl}`);
+//   next();
+// });
+//Routes
+//admin register
+app.use("/api/v1/admin", adminRouter);
+
+//Error middlewares
+app.use((err, req, res, next) => {
+  console.log(err);
+  //status
+  //message
+  //stack
+  const stack = err.stack;
+  const message = err.message;
+  const status = err.status ? err.status : "failed";
+  const statusCode = err.statusCode ? err.statusCode : 500;
+  res.status(statusCode).json({
+    status,
+    message,
+    stack,
+  });
 });
 
 let user = {

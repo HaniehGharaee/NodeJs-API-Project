@@ -11,7 +11,8 @@ exports.registerAdminCtrl = AysncHandler(async (req, res) => {
   //Check if email exists
   const adminFound = await Admin.findOne({ email });
   if (adminFound) {
-    res.json("Admin Exists");
+    //res.json("Admin Exists");
+    throw new Error("Admin Exists")
   }
   //register
   const user = await Admin.create({
