@@ -1,5 +1,5 @@
 const express = require("express");
-const globalErrHandler = require("../middlewares/globalErrHandler");
+const {globalErrHandler, notFoundErr} = require("../middlewares/globalErrHandler");
 const morgan = require("morgan");
 const adminRouter = require("../routes/staff/adminRouter");
 adminRouter;
@@ -19,6 +19,7 @@ app.use(express.json()); //pass incoming json data
 app.use("/api/v1/admin", adminRouter);
 
 //Error middlewares
+app.use(notFoundErr)
 app.use(globalErrHandler);
 
 let user = {
