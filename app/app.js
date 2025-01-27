@@ -1,4 +1,5 @@
 const express = require("express");
+const globalErrHandler = require("../middlewares/globalErrHandler");
 const morgan = require("morgan");
 const adminRouter = require("../routes/staff/adminRouter");
 adminRouter;
@@ -18,21 +19,7 @@ app.use(express.json()); //pass incoming json data
 app.use("/api/v1/admin", adminRouter);
 
 //Error middlewares
-app.use((err, req, res, next) => {
-  console.log(err);
-  //status
-  //message
-  //stack
-  const stack = err.stack;
-  const message = err.message;
-  const status = err.status ? err.status : "failed";
-  const statusCode = err.statusCode ? err.statusCode : 500;
-  res.status(statusCode).json({
-    status,
-    message,
-    stack,
-  });
-});
+app.use(globalErrHandler);
 
 let user = {
   name: "Hanieh Gharaee",
