@@ -38,6 +38,8 @@ exports.loginAdminCtrl = async (req, res) => {
       return res.json({ message: "Usre not found" });
     }
     if (user && (await user.verifyPassword(password))) {
+      //save the user into req obj
+      req.userAuth = user;
       return res.json({ data: user });
     } else {
       return res.json({ message: "Invalid login crendentials" });

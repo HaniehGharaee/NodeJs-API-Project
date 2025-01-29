@@ -4,8 +4,8 @@ const {
   loginAdminCtrl,
   getAdminsCtrl,
   getAdminCtrl,
-  updateAdminCtrl, 
-  deleteAdminCtrl, 
+  updateAdminCtrl,
+  deleteAdminCtrl,
   adminSuspendTeacherCtrl,
   adminUnSUspendTeacherCtrl,
   adminWithdrawTeacherCtrl,
@@ -13,6 +13,8 @@ const {
   adminPublishResultCtrl,
   adminUnPublishResultCtrl
 } = require("../../controller/staff/adminCtrl");
+const isLogin = require("../../middlewares/globalErrHandler")
+
 const adminRouter = express.Router();
 
 //register
@@ -25,7 +27,7 @@ adminRouter.post("/login", loginAdminCtrl);
 adminRouter.get("/", getAdminsCtrl);
 
 //get single admins
-adminRouter.get("/:id", getAdminCtrl);
+adminRouter.get("/:id", isLogin, getAdminCtrl);
 
 //update admin
 adminRouter.put("/:id", updateAdminCtrl);
