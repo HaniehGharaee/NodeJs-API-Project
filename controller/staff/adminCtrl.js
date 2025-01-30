@@ -1,5 +1,6 @@
 const AysncHandler = require("express-async-handler");
 const Admin = require("../../model/Staff/Admin");
+const generateToken = require("../../utils/generateToken")
 
 //@desc Register admin
 //@route Post /api/v1/admins/register
@@ -29,28 +30,29 @@ exports.registerAdminCtrl = AysncHandler(async (req, res) => {
 //@desc login admin
 //@route Post /api/v1/admins/register
 //@acess Private
-exports.loginAdminCtrl = async (req, res) => {
+exports.loginAdminCtrl = AysncHandler(async (req, res) => {
   const { email, password } = req.body;
-  try {
-    //find user
-    const user = await Admin.findOne({ email });
-    if (!user) {
-      return res.json({ message: "Usre not found" });
-    }
-    if (user && (await user.verifyPassword(password))) {
-      //save the user into req obj
-      req.userAuth = user;
-      return res.json({ data: user });
-    } else {
-      return res.json({ message: "Invalid login crendentials" });
-    }
-  } catch (error) {
-    res.json({
-      status: "failed",
-      error: error.massage,
-    });
+
+  //find user
+  const user = await Admin.findOne({ email });
+  if (!user) {
+    return res.json({ message: "Usre not found" });
   }
-};
+  if (user && (await user.verifyPassword(password))) {
+    //save the user into req obj
+    req.userAuth = user;
+    //return res.json({ data: user });
+    return res.json({ data: generateToken(user._id) });
+  } else {
+    return res.json({ message: "Invalid login crendentials" });
+  }
+  // } catch (error) {
+  //   res.json({
+  //     status: "failed",
+  //     error: error.massage,
+  //   });
+  // }
+});
 
 //@desc Get all admins
 //@route GET /api/v1/admins
