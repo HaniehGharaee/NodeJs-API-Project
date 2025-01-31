@@ -62,8 +62,9 @@ exports.loginAdminCtrl = AysncHandler(async (req, res) => {
 //@desc Get all admins
 //@route GET /api/v1/admins
 //@acess Private
-exports.getAdminsCtrl = (req, res) => {
+exports.getAdminCtrl = (req, res) => {
   try {
+    console.log(req.userAuth)
     res.status(201).json({
       status: "success",
       data: "All admins",

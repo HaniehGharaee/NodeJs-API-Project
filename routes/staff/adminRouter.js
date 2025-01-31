@@ -2,7 +2,7 @@ const express = require("express");
 const {
   registerAdminCtrl,
   loginAdminCtrl,
-  getAdminsCtrl,
+  getAdminCtrl,
   getAdminCtrl,
   updateAdminCtrl,
   deleteAdminCtrl,
@@ -24,7 +24,7 @@ adminRouter.post("/register", registerAdminCtrl);
 adminRouter.post("/login", loginAdminCtrl);
 
 //get all
-adminRouter.get("/", getAdminsCtrl);
+adminRouter.get("/", getAdminCtrl);
 
 //get single admins
 adminRouter.get("/:id", isLogin, getAdminCtrl);
