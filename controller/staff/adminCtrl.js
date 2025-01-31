@@ -1,7 +1,7 @@
 const AysncHandler = require("express-async-handler");
 const Admin = require("../../model/Staff/Admin");
 const generateToken = require("../../utils/generateToken")
-
+const verifyToken = require("../../utils/verifyToken")
 //@desc Register admin
 //@route Post /api/v1/admins/register
 //@acess Private
@@ -39,10 +39,15 @@ exports.loginAdminCtrl = AysncHandler(async (req, res) => {
     return res.json({ message: "Usre not found" });
   }
   if (user && (await user.verifyPassword(password))) {
+    const token = generateToken(user._id)
+    if (token) {
+      const verify = verifyToken(token)
+      console.log(verify)
+    }
     //save the user into req obj
     req.userAuth = user;
     //return res.json({ data: user });
-    return res.json({ data: generateToken(user._id) });
+    return res.json({ data: generateToken(user._id), user, verify });
   } else {
     return res.json({ message: "Invalid login crendentials" });
   }
