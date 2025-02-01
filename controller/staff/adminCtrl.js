@@ -62,25 +62,41 @@ exports.loginAdminCtrl = AysncHandler(async (req, res) => {
 //@desc Get all admins
 //@route GET /api/v1/admins
 //@acess Private
-exports.getAdminCtrl = (req, res) => {
-  try {
-    console.log(req.userAuth)
-    res.status(201).json({
+exports.getAdminProfileCtrl = AysncHandler(async (req, res) => {
+  console.log(req.userAuth)
+  const admin = await Admin.findById(req.userAuth._id).select(
+    '-password -createdAt -updateAt' //these remove from response api
+  )
+  console.log(admin)
+  if (!admin) {
+    throw new Error("Admin Not Found");
+  } else {
+    res.status(200).json({
       status: "success",
-      data: "All admins",
-    });
-  } catch (error) {
-    res.json({
-      status: "failed",
-      error: error.massage,
+      data: admin,
     });
   }
-};
+})
+
+// (req, res) => {
+//   try {
+//     console.log(req.userAuth)
+//     res.status(201).json({
+//       status: "success",
+//       data: "All admins",
+//     });
+//   } catch (error) {
+//     res.json({
+//       status: "failed",
+//       error: error.massage,
+//     });
+//   }
+// };
 
 //@desc Get single admin
 //@route GET /api/v1/admins/:id
 //@acess Private
-exports.getAdminCtrl = (req, res) => {
+exports.getAdminsCtrl = (req, res) => {
   try {
     res.status(201).json({
       status: "success",
