@@ -24,6 +24,7 @@ exports.registerAdminCtrl = AysncHandler(async (req, res) => {
   res.status(201).json({
     status: "success",
     data: user,
+    message: "Admin registered successfully"
   });
 });
 
@@ -36,18 +37,23 @@ exports.loginAdminCtrl = AysncHandler(async (req, res) => {
   //find user
   const user = await Admin.findOne({ email });
   if (!user) {
-    return res.json({ message: "Usre not found" });
+    //message: Usre not found before that 
+    return res.json({ message: "Invalid login crendentials" });
   }
   if (user && (await user.verifyPassword(password))) {
-    const token = generateToken(user._id)
-    if (token) {
-      const verify = verifyToken(token)
-      console.log(verify)
-    }
+    // const token = generateToken(user._id)
+    // if (token) {
+    //   const verify = verifyToken(token)
+    //   console.log(verify)
+    // }
     //save the user into req obj
-    req.userAuth = user;
+    //req.userAuth = user;
     //return res.json({ data: user });
-    return res.json({ data: generateToken(user._id), user, verify });
+    return res.json({
+      data: generateToken(user._id),
+      message: "Admin logged in successfully"
+      //user, verify 
+    });
   } else {
     return res.json({ message: "Invalid login crendentials" });
   }
@@ -74,6 +80,7 @@ exports.getAdminProfileCtrl = AysncHandler(async (req, res) => {
     res.status(200).json({
       status: "success",
       data: admin,
+      message: "Admin Profile fetched successfully"
     });
   }
 })
