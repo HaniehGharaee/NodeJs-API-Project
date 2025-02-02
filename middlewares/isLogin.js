@@ -7,7 +7,11 @@ const isLogin = async (req, res, next) => {
     console.log(headerObj)
     console.log(headerObj.authorization)
     console.log(headerObj.authorization.split(" ")[1])
-    const token = headerObj.authorization.split(" ")[1];
+    const token = headerObj?.authorization?.split(" ")[1];
+    // const token =
+    //     headerObj &&
+    //     headerObj.authorization &&
+    //     headerObj.authorization.split(" ")[1]
     //verify token
     const verifiedToken = verifyToken(token)
     if (verifiedToken) {

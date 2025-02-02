@@ -103,19 +103,27 @@ exports.getAdminProfileCtrl = AysncHandler(async (req, res) => {
 //@desc Get single admin
 //@route GET /api/v1/admins/:id
 //@acess Private
-exports.getAdminsCtrl = (req, res) => {
-  try {
-    res.status(201).json({
-      status: "success",
-      data: "All admins",
-    });
-  } catch (error) {
-    res.json({
-      status: "failed",
-      error: error.massage,
-    });
-  }
-};
+exports.getAdminsCtrl = AysncHandler(async (req, res) => {
+  const admins = await Admin.find();
+  res.status(200).json({
+    status: "success",
+    message: "Admin fetched successfully",
+    data: admins,
+  })
+})
+// (req, res) => {
+//   try {
+//     res.status(201).json({
+//       status: "success",
+//       data: "All admins",
+//     });
+//   } catch (error) {
+//     res.json({
+//       status: "failed",
+//       error: error.massage,
+//     });
+//   }
+// };
 
 //@desc  Update admin
 //@route UPDATE /api/v1/admins/:id
