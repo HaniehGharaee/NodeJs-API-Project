@@ -128,19 +128,44 @@ exports.getAdminsCtrl = AysncHandler(async (req, res) => {
 //@desc  Update admin
 //@route UPDATE /api/v1/admins/:id
 //@acess Private
-exports.updateAdminCtrl = (req, res) => {
-  try {
-    res.status(201).json({
+exports.updateAdminCtrl = AysncHandler(async (req, res) => {
+  const { email, name, password } = req.body
+  //find the admin
+  const adminFound = await Admin.findById(req.userAuth._id);
+  //If email is token
+  const emailExist = await Admin.findOne({ email })
+  if (emailExist) {
+    throw new Error('This email is token/exist')
+  } else {
+    //update
+    const admin = await Admin.findByIdAndUpdate(req.userAuth._id, {
+      email,
+      password,
+      name
+    },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.status(200).json({
       status: "success",
-      data: "single admins",
-    });
-  } catch (error) {
-    res.json({
-      status: "failed",
-      error: error.massage,
-    });
+      data: admin,
+      message: "Admin updated successfully"
+    })
   }
-};
+});
+// try {
+//   res.status(201).json({
+//     status: "success",
+//     data: "single admins",
+//   });
+// } catch (error) {
+//   res.json({
+//     status: "failed",
+//     error: error.massage,
+//   });
+// }
 
 //@desc  Delete admin
 //@route DELETE /api/v1/admins/:id
