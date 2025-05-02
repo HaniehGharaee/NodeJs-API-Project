@@ -1,4 +1,5 @@
 const AysncHandler = require("express-async-handler");
+const bcrypt = require("bcryptjs")
 const Admin = require("../../model/Staff/Admin");
 const generateToken = require("../../utils/generateToken")
 const verifyToken = require("../../utils/verifyToken")
@@ -15,11 +16,14 @@ exports.registerAdminCtrl = AysncHandler(async (req, res) => {
     //res.json("Admin Exists");
     throw new Error("Admin Exists")
   }
+  //hash password
+  const salt = await bcrypt.genSalt(10);
+  const passwordHashed = await bcrypt.hash(password, salt);
   //register
   const user = await Admin.create({
     name,
     email,
-    password,
+    password: passwordHashed,
   });
   res.status(201).json({
     status: "success",
@@ -40,23 +44,35 @@ exports.loginAdminCtrl = AysncHandler(async (req, res) => {
     //message: Usre not found before that 
     return res.json({ message: "Invalid login crendentials" });
   }
-  if (user && (await user.verifyPassword(password))) {
-    // const token = generateToken(user._id)
-    // if (token) {
-    //   const verify = verifyToken(token)
-    //   console.log(verify)
-    // }
-    //save the user into req obj
-    //req.userAuth = user;
-    //return res.json({ data: user });
+  //verify password 
+  const isMatched = await bcrypt.compare(password, user.password)
+  if (!isMatched) {
+    return res.json({ message: "Invlid login crendentials" })
+  }else{
     return res.json({
       data: generateToken(user._id),
       message: "Admin logged in successfully"
       //user, verify 
     });
-  } else {
-    return res.json({ message: "Invalid login crendentials" });
   }
+
+  // if (user && (await user.verifyPassword(password))) {
+  //   // const token = generateToken(user._id)
+  //   // if (token) {
+  //   //   const verify = verifyToken(token)
+  //   //   console.log(verify)
+  //   // }
+  //   //save the user into req obj
+  //   //req.userAuth = user;
+  //   //return res.json({ data: user });
+  //   return res.json({
+  //     data: generateToken(user._id),
+  //     message: "Admin logged in successfully"
+  //     //user, verify 
+  //   });
+  // } else {
+  //   return res.json({ message: "Invalid login crendentials" });
+  // }
   // } catch (error) {
   //   res.json({
   //     status: "failed",

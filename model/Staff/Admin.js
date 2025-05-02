@@ -66,22 +66,22 @@ const adminSchema = new mongoose.Schema(
   }
 );
 //Hash password
-adminSchema.pre("save", async function (next) {
-  console.log("I have been called");
-  console.log(this);
-  if (!this.isModified("password")) {
-    next();
-  }
+// adminSchema.pre("save", async function (next) {
+//   console.log("I have been called");
+//   console.log(this);
+//   if (!this.isModified("password")) {
+//     next();
+//   }
   //salt
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
+//   const salt = await bcrypt.genSalt(10);
+//   this.password = await bcrypt.hash(this.password, salt);
+//   next();
+// });
 
 //verifyPassword
-adminSchema.method.verifyPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-}
+// adminSchema.method.verifyPassword = async function (enteredPassword) {
+//   return await bcrypt.compare(enteredPassword, this.password);
+// }
 
 //model
 const Admin = mongoose.model("Admin", adminSchema);
